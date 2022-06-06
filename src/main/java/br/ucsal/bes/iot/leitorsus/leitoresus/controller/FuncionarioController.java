@@ -37,7 +37,8 @@ public class FuncionarioController {
 
     }
     
-    public ResponseEntity<FuncionarioDto> login(@PathVariable String username, @PathVariable String password) {
+    @GetMapping("/auth")
+    public ResponseEntity<FuncionarioDto> login(@RequestParam String username, @RequestParam String password) {
     	Funcionario funcionario = repository.findByUsername(username);
     	if(funcionario != null) {
     		FuncionarioDto aux = FuncionarioDto.conversorIndividual(funcionario);
