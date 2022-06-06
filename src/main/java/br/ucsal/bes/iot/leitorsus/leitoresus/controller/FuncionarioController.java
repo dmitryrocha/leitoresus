@@ -36,6 +36,18 @@ public class FuncionarioController {
         return ResponseEntity.notFound().build();
 
     }
+    
+    public ResponseEntity<FuncionarioDto> login(@PathVariable String username, @PathVariable String password) {
+    	Funcionario funcionario = repository.findByUsername(username);
+    	if(funcionario != null) {
+    		FuncionarioDto aux = FuncionarioDto.conversorIndividual(funcionario);
+    		if(aux.getSenha().equals(password)) {
+    			return ResponseEntity.ok(aux);
+    		}
+    		return ResponseEntity.badRequest().build();
+    	}
+    	return ResponseEntity.badRequest().build();
+    }
 
     @PostMapping
     public void save(@RequestBody FuncionarioDto funcionarioDto) {
